@@ -1,0 +1,17 @@
+Source: hiawatha
+Section: web
+Priority: optional
+Maintainer: Ralph Hempel <rhempel@hempeldesigngroup.com>
+Build-Depends: debhelper (>= 8.0.0), cmake, libxml2-dev, libxslt1-dev, zlib1g-dev
+Standards-Version: 3.9.4
+Homepage: http://www.hiawatha-webserver.org/
+Vcs-Git: git://github.com/ev3dev/hiawatha.git
+Vcs-Browser: https://github.com/ev3dev/hiawatha.git
+
+Package: hiawatha
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, logrotate
+Suggests: php5-fpm
+Provides: httpd, httpd-cgi
+Description: Advanced and secure webserver for Unix
+ Hiawatha is a webserver with the three key attributes: secure, easy-to-use, and lightweight.

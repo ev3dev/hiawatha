@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+# export DH_VERBOSE=1
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_INSTALL_PREFIX="" -DCMAKE_INSTALL_LIBDIR=usr/lib \
+		-DCMAKE_INSTALL_BINDIR=usr/bin -DCMAKE_INSTALL_SBINDIR=usr/sbin \
+		-DCMAKE_INSTALL_SYSCONFDIR=etc -DCMAKE_INSTALL_MANDIR=usr/share/man \
+		-DENABLE_TOMAHAWK=on -DENABLE_MONITOR=on
+
+override_dh_auto_install:
+	dh_auto_install
+	sed "s/#ServerId/ServerId/" obj-$(DEB_TARGET_MULTIARCH)/config/hiawatha.conf > debian/hiawatha/etc/hiawatha/hiawatha.conf
+	cp -r obj-$(DEB_TARGET_MULTIARCH)/logrotate.d debian/hiawatha/etc
+     
+override_dh_installdocs:
+	dh_installdocs --exclude=CMakeFiles.txt
